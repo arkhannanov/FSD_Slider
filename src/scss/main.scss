@@ -2,18 +2,23 @@ html,
 body
 {
     max-width: 1200px;
+    h1 {
+        text-align: center;
+    }
     .sliders_wrapper
     {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
         width: 100%;
-        h1 {
-            text-align: center;
-        }
+        
     }
 
 }
 
 .rs-range {
     margin-top: 0px;
+  //  margin-bottom: 40px;
     width: 260px;
     -webkit-appearance: none;
     &:focus {
@@ -27,7 +32,7 @@ body
         box-shadow: none;
        // background: #e5e5e5;
         border-radius: 2px;
-        border: 2px solid #e5e5e5;
+        border: 2px solid transparent;
         background: #e5e5e5;
     }
 
@@ -37,8 +42,9 @@ body
         cursor: pointer;
         box-shadow: none;
        // background: #ffffff;
-        border-radius: 0px;
-        border: 2px solid #e5e5e5;
+        border-radius: 2px;
+        border: none;
+       // border: 2px solid #e5e5e5;
     }
   
     &::-webkit-slider-thumb {
@@ -106,3 +112,66 @@ body
     
 }
 
+.text_block
+    {
+        width: 260px;
+        font-size: 11px;
+        font-weight: 400;
+        line-height: 33px;
+        letter-spacing: 0.55px;
+        margin-left: 5px;
+        color: black;
+        display: flex;
+        flex-direction:row;
+        justify-content: space-between;
+        margin-bottom: 30px;
+        margin-top: -7px;
+    }
+.multiple
+ {
+    display: flex;
+    flex-direction:row;
+    
+ }
+
+ .panel
+ {
+     font-size: 10px;
+     width: 280px;
+     .Max
+     {
+         width: 40px;
+     }
+     .Max::-webkit-input-placeholder {
+         font-size: 8px;
+     }
+     .Min
+     {
+         width: 40px;
+     }
+     .Min::-webkit-input-placeholder {
+         font-size: 8px;
+     }
+     .CurrentValue1
+     {
+        width: 60px;
+    }
+    .CurrentValue1::-webkit-input-placeholder {
+        font-size: 8px;
+    }
+    .CurrentValue2
+    {
+       width: 60px;
+    }
+    .CurrentValue2::-webkit-input-placeholder {
+       font-size: 8px;
+    }
+    .StepSize
+    {
+        width: 40px;
+    }
+    .StepSize::-webkit-input-placeholder {
+        font-size: 8px;
+    }
+ }
+@import 'multiple.css'

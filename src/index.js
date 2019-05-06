@@ -1,4 +1,6 @@
 import './js/slider.js'
+//import './js/multiple.js'
 import './scss/main.scss'
 
-window.Vue = require('vue')
+const multirange = require('./js/multiple.js');
+multirange.init();

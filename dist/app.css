@@ -1,0 +1,47 @@
+@supports (--css: variables) {
+	input[type="range"].multirange {
+		padding: 0;
+		margin: 0;
+		display: inline-block;
+		vertical-align: top;
+	}
+
+	input[type="range"].multirange.original {
+		position: absolute;
+	}
+
+		input[type="range"].multirange.original::-webkit-slider-thumb {
+			position: relative;
+			z-index: 2;
+		}
+
+		input[type="range"].multirange.original::-moz-range-thumb {
+			transform: scale(1); /* FF doesn't apply position it seems */
+			z-index: 1;
+		}
+
+		input[type="range"].multirange::-moz-range-track {
+			border-color: transparent; /* needed to switch FF to "styleable" control */
+		}
+
+	input[type="range"].multirange.ghost {
+		position: relative;
+		background: var(--track-background);
+		--track-background: linear-gradient(to right,
+				transparent var(--low), var(--range-color) 0,
+				var(--range-color) var(--high), transparent 0
+			) no-repeat 0 45% / 100% 40%;
+		--range-color: hsl(190, 80%, 40%);
+	}
+
+		input[type="range"].multirange.ghost::-webkit-slider-runnable-track {
+			background: var(--track-background);
+		}
+
+		input[type="range"].multirange.ghost::-moz-range-track {
+			background: var(--track-background);
+		}
+
+}
+
+body,html{max-width:1200px}body .sliders_wrapper,html .sliders_wrapper{width:100%}body .sliders_wrapper h1,html .sliders_wrapper h1{text-align:center}.rs-range{margin-top:0;width:260px;-webkit-appearance:none}.rs-range:focus{outline:none}.rs-range::-webkit-slider-runnable-track{width:100%;height:5px;cursor:pointer;box-shadow:none;border-radius:2px;border:2px solid #e5e5e5;background:#e5e5e5}.rs-range::-moz-range-track{width:100%;height:5px;cursor:pointer;box-shadow:none;border-radius:0;border:2px solid #e5e5e5}.rs-range::-webkit-slider-thumb{box-shadow:none;border:0 solid #fff;height:21px;width:21px;border-radius:50%;background:#e75735;cursor:pointer;-webkit-appearance:none;margin-top:-10px}.rs-range::-moz-range-thumb{box-shadow:none;border:0 solid #fff;height:21px;width:21px;border-radius:50%;background:#e75735;cursor:pointer;-webkit-appearance:none;margin-top:-10px;z-index:5}.rs-range::-moz-focus-outer{border:0}.rs-label{position:relative;-webkit-transform-origin:center center;transform-origin:center center;display:block;width:35px;height:28px;background-image:url(img/Slider_bubble_bg.png);background-repeat:no-repeat;text-align:center;left:94px;padding-top:-30px;box-sizing:border-box;margin-left:-3px;color:#fff;font-size:13px;font-weight:400;line-height:28px;letter-spacing:.65px}

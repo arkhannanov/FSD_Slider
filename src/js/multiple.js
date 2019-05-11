@@ -4,6 +4,8 @@
     var supportsMultiple = self.HTMLInputElement && "valueLow" in HTMLInputElement.prototype;
     
     var descriptor = Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, "value");
+
+    var GhostInput;
     
     var multirange = function(input) {
         if (supportsMultiple || input.classList.contains("multirange")) {
@@ -34,12 +36,14 @@
             valueLow: {
                 get: function() { return Math.min(this.originalValue, ghost.value); },
                 set: function(v) { this.originalValue = v; },
-                enumerable: true
+                enumerable: true,
+                configurable : true
             },
             valueHigh: {
                 get: function() { return Math.max(this.originalValue, ghost.value); },
                 set: function(v) { ghost.value = v; },
-                enumerable: true
+                enumerable: true,
+                configurable : true
             }
         });
     
@@ -53,7 +57,8 @@
                     this.valueHigh = values[1];
                     update();
                 },
-                enumerable: true
+                enumerable: true,
+                configurable : true
             });
         }
     
@@ -70,12 +75,14 @@
         ghost.addEventListener("input", update);
     
         update();
+
     }
     
     multirange.init = function() {
         [].slice.call(document.querySelectorAll("input[type=range][multiple]:not(.multirange)")).forEach(multirange);
     }
-    
+
+
     if (typeof module === "undefined") {
         self.multirange = multirange;
         if (document.readyState == "loading") {

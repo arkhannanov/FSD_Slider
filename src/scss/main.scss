@@ -114,12 +114,12 @@ body
 
 .text_block
     {
-        width: 260px;
+        width: 250px;
         font-size: 11px;
         font-weight: 400;
         line-height: 33px;
         letter-spacing: 0.55px;
-        margin-left: 5px;
+        margin-left: 10px;
         color: black;
         display: flex;
         flex-direction:row;
@@ -173,5 +173,32 @@ body
     .StepSize::-webkit-input-placeholder {
         font-size: 8px;
     }
+ }
+
+ .display_none
+ {
+    display: none;
+ }
+
+ .vertical
+ {
+     transform: rotate(270deg);
+     margin-bottom: 90px!important;
+     margin-top: 68px!important;
+ }
+
+ .vertical_text_block
+ {  
+  //  margin-top: -80px;
+    position: relative;
+    left: 27px;
+    top: -103px;
+    transform: rotate(270deg);
+    z-index: -1; 
+ }
+
+ .span_rotate
+ {
+    transform: rotate(90deg);
  }
 @import 'multiple.css'

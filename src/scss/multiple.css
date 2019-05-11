@@ -4,6 +4,8 @@
 		margin: 0;
 		display: inline-block;
 		vertical-align: top;
+		margin-top: 9.5px;
+		margin-left: 2px;
 	}
 
 	input[type="range"].multirange.original {
@@ -48,6 +50,6 @@ input[type="range"].multirange.ghost
 {
     height: 5px;
     border-radius: 2px;
-    /* z-index:100; */
+     z-index: 1; 
     background:  #e5e5e5;;
 }

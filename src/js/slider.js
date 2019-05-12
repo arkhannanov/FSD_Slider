@@ -1,7 +1,5 @@
 var View = function (rootObject){
 
-    this.InputMin;
-    this.InputMax;
     this.InputCurrentValue1;
     this.InputCurrentValue2;
     this.InputStepSize;
@@ -9,25 +7,39 @@ var View = function (rootObject){
     this.InputShowBubble;
     this.InputHorizontal;
 
-    this.RangeBullet;
-    this.RangeSlider;
+    this.RangeBulletLow;
+    this.RangeBulletHigh;
 
-    this.InputMinValue;
-    this.InputMaxValue;
+    this.RangeSlider;
 
     this.InputContainer;
     this.Text_block;
+
     this.Num1;
     this.Num2;
     this.Num3;
     this.Num4;
+    this.Num5;
+
+    this.CurrentValue1Span;
+    this.CurrentValue2Span;
+
+    this.Br3;
 
     this.createRangeBullet = function (){
-        const RangeBullet = document.createElement('span');
-        RangeBullet.className = "rs-label";
-        RangeBullet.innerHTML = 40;
-        this.RangeBullet = RangeBullet;
-        rootObject.appendChild(RangeBullet);
+        const RangeBulletsContainer = document.createElement('div');
+        const RangeBulletLow = document.createElement('span');
+        const RangeBulletHigh = document.createElement('span');
+        RangeBulletsContainer.className= "multiple";
+        RangeBulletLow.className = "rs-label";
+        RangeBulletHigh.className = "rs-label";
+        RangeBulletLow.innerHTML = "20";
+        RangeBulletHigh.innerHTML = "80";
+        this.RangeBulletLow = RangeBulletLow;
+        this.RangeBulletHigh = RangeBulletHigh;
+        RangeBulletsContainer.appendChild(RangeBulletLow);
+        RangeBulletsContainer.appendChild(RangeBulletHigh);
+        rootObject.appendChild(RangeBulletsContainer);
     };
     
     this.createRangeSlider = function (){
@@ -52,17 +64,18 @@ var View = function (rootObject){
         const Num4 = document.createElement('span');
         const Num5 = document.createElement('span');
         this.Text_block = Numbers;
+
         this.Num1 = Num1;
         this.Num2 = Num2;
         this.Num3 = Num3;
         this.Num4 = Num4;
         this.Num5 = Num5;
 
-        Num1.innerHTML="0";
-        Num2.innerHTML="25";
-        Num3.innerHTML="50";
-        Num4.innerHTML="75";
-        Num5.innerHTML="100";
+        this.Num1.innerHTML="0";
+        this.Num2.innerHTML="25";
+        this.Num3.innerHTML="50";
+        this.Num4.innerHTML="75";
+        this.Num5.innerHTML="100";
         Numbers.appendChild(Num1);
         Numbers.appendChild(Num2);
         Numbers.appendChild(Num3);
@@ -100,7 +113,6 @@ var View = function (rootObject){
         const Min = document.createElement('input');
         Min.setAttribute("type", "text");
         Min.setAttribute("placeholder","Min");
-        Min.setAttribute("name","Min");
         this.InputMin = Min;
         Min.className = "Min";
 
@@ -121,13 +133,13 @@ var View = function (rootObject){
 
         const CurrentValue1 = document.createElement('input');
         CurrentValue1.setAttribute("type", "text");
-        CurrentValue1.setAttribute("placeholder","CurrentValue1");
-        CurrentValue1.setAttribute("id","CurrentValue1");
+        CurrentValue1.setAttribute("placeholder","Value");
         this.InputCurrentValue1 = CurrentValue1;
         CurrentValue1.className = "CurrentValue1";
 
         const CurrentValue1Span = document.createElement('span');
-        CurrentValue1Span.innerHTML = "CurrentValue1";
+        CurrentValue1Span.innerHTML = "Value";
+        this.CurrentValue1Span = CurrentValue1Span;
 
         const Br2 = document.createElement('br');
 
@@ -140,8 +152,10 @@ var View = function (rootObject){
 
         const CurrentValue2Span = document.createElement('span');
         CurrentValue2Span.innerHTML = "CurrentValue2";
+        this.CurrentValue2Span = CurrentValue2Span;
 
         const Br3 = document.createElement('br');
+        this.Br3 = Br3;
 
         const StepSize = document.createElement('input');
         StepSize.setAttribute("type", "text");
@@ -214,6 +228,7 @@ var View = function (rootObject){
 var Controller = function (id){
 
     const SliderElem = document.getElementById(id);
+
     const SliderView = new View(SliderElem);
 
     const SliderModel = new Model ();
@@ -227,33 +242,66 @@ var Controller = function (id){
         SliderView.InputShowBubble.addEventListener('click', checkInputShowBubble);
         SliderView.InputInterval.addEventListener('click', checkInputInterval);
         SliderView.InputHorizontal.addEventListener('click', checkInputHorizontal);
+        SliderView.InputHorizontal.addEventListener('click', checkInputHorizontal);
+        SliderView.RangeSlider.addEventListener("input", checkRangeSlider);
 
         const multirange = require('./multiple.js');
 
+        var StepSize = 1;
+
+        if (SliderView.InputInterval.checked === true){
+
+            SliderView.InputCurrentValue2.classList.add("display_none");
+            SliderView.CurrentValue2Span.classList.add("display_none");
+            SliderView.Br3.classList.add("display_none");
+            console.log(SliderView.RangeBulletHigh);
+            SliderView.RangeBulletHigh.classList.add("display_none");
+        }
+
         function checkInputCurrentValue1(e){
             var inputValue = e.target.value;
-            SliderView.RangeBullet.innerHTML=inputValue;
-            console.log(e.target.value);
+            SliderView.RangeBulletLow.innerHTML=inputValue;
+            SliderView.RangeSlider.value = inputValue;
         }
        
         function checkInputMin(e){
             var inputValue = e.target.value;
             SliderView.RangeSlider.setAttribute("min", Number.parseInt(inputValue));
-            SliderView.InputMinValue = inputValue;
-            console.log(e.target.value);
+            SliderModel.MinValue = inputValue;
+
+            SliderModel.CalculateValues();
+
+            SliderView.Num1.innerHTML = SliderModel.MinValue;
+            SliderView.Num2.innerHTML = SliderModel.Value1;
+            SliderView.Num3.innerHTML = SliderModel.Value2;
+            SliderView.Num4.innerHTML = SliderModel.Value3;
+            SliderView.Num5.innerHTML = SliderModel.MaxValue;
+            
         }
 
         function checkInputMax(e){
             var inputValue = e.target.value;
             SliderView.RangeSlider.setAttribute("max", Number.parseInt(inputValue));
-            SliderView.InputMaxValue = inputValue;
-            console.log(e.target.value);
+
+            SliderModel.MaxValue = inputValue;
+
+            SliderModel.CalculateValues();
+
+            SliderView.Num1.innerHTML = SliderModel.MinValue;
+            SliderView.Num2.innerHTML = SliderModel.Value1;
+            SliderView.Num3.innerHTML = SliderModel.Value2;
+            SliderView.Num4.innerHTML = SliderModel.Value3;
+            SliderView.Num5.innerHTML = SliderModel.MaxValue;
+
+           
+            
         }
 
         function checkInputStepSize(e){
             var inputValue = e.target.value;
             SliderView.RangeSlider.setAttribute("step", Number.parseInt(inputValue));
-            console.log(e.target.value);
+            StepSize = inputValue;
+            console.log(StepSize);
         }
         
         function checkInputShowBubble(){
@@ -273,13 +321,23 @@ var Controller = function (id){
             {
                 SliderView.RangeSlider.removeAttribute("multiple");
                 SliderView.RangeSlider.classList.remove("multirange","original");
-              //  SliderView.RangeSlider.removeAttribute("value");
+              
                 SliderView.RangeSlider.setAttribute("value",80);
 
                 const Parent = SliderView.RangeSlider.parentNode;
                 var Ghost = SliderView.RangeSlider.parentNode.childNodes[1];
                 Parent.removeChild(Ghost);
-                console.log("Range");
+
+                SliderView.InputCurrentValue2.classList.add("display_none");
+                SliderView.CurrentValue2Span.classList.add("display_none");
+                SliderView.Br3.classList.add("display_none");
+
+                SliderView.InputCurrentValue1.setAttribute("placeholder", "Value");
+                SliderView.CurrentValue1Span.innerHTML = "Value";
+
+                SliderView.RangeBulletHigh.classList.add("display_none");
+
+               
             }
             else
             {
@@ -287,8 +345,35 @@ var Controller = function (id){
                 SliderView.RangeSlider.setAttribute("multiple","");
                 SliderView.RangeSlider.removeAttribute("value");
                 SliderView.RangeSlider.setAttribute("value","20,80");
-                console.log("Interval");
+               
                 multirange.init();
+
+                const Parent = SliderView.RangeSlider.parentNode;
+                var Ghost = SliderView.RangeSlider.parentNode.childNodes[1];
+                console.log(Ghost);
+
+                Ghost.addEventListener("input", checkGhostSlider);
+
+                function checkGhostSlider(){
+
+                    value=this.value;
+                    SliderView.InputCurrentValue2.value = value;
+                    SliderView.RangeBulletHigh.innerHTML = value;
+                    this.setAttribute("step", StepSize);
+                }
+
+                SliderView.InputCurrentValue2.classList.remove("display_none");
+                SliderView.CurrentValue2Span.classList.remove("display_none");
+                SliderView.Br3.classList.remove("display_none");
+
+                SliderView.InputCurrentValue1.setAttribute("placeholder", "ValueLow");
+                SliderView.CurrentValue1Span.innerHTML = "ValueLow";
+
+                SliderView.InputCurrentValue2.setAttribute("placeholder", "ValueHigh");
+                SliderView.CurrentValue2Span.innerHTML = "ValueHigh";
+
+                SliderView.RangeBulletHigh.classList.remove("display_none");
+
             }
         }
 
@@ -314,24 +399,16 @@ var Controller = function (id){
                 SliderView.Num4.classList.add("span_rotate");
                 SliderView.Num5.classList.add("span_rotate");
             }
-
         }
 
-        
-     //   this.ReadModelAndUptadeSlider();
-    //     function checkInputCurrentValue2(e){
-    //         var inputValue = e.target.value;
-    //         SliderModel.CurrentValue2Value = inputValue;
-    //     }
+        function checkRangeSlider(){
 
-    //     function checkInputStepSize(e){
-    //         var inputValue = e.target.value;
-    //         SliderModel.StepSizeValue = inputValue;
-    //     }
+            value=this.value;
+            SliderView.InputCurrentValue1.value = value;
+            SliderView.RangeBulletLow.innerHTML = value;
+            multirange.init();
+        }
 
-    //     SliderModel.InputIntervalChecked = this.InputInterval.checked;
-    //     SliderModel.ShowBubbleChecked = this.InputShowBubble.checked;
-    //     SliderModel.HorizontalChecked = this.InputHorizontal;
      }
 
     this.ReadModelAndUptadeSlider = function(){
@@ -340,20 +417,21 @@ var Controller = function (id){
         SliderView.createRangeSlider();
         SliderView.createNumbers();
         SliderView.createUI();
-        console.log(SliderView.value);
     }
 }
 
 var Model = function (){
+    
+    this.MinValue = 0;
+    this.MaxValue = 100;
 
-    this.MaxValue;
-    this.MinValue;
-    this.CurrentValue1Value;
-    this.CurrentValue2Value;
-    this.StepSizeValue;
-    this.InputIntervalChecked;
-    this.ShowBubbleChecked;
-    this.HorizontalChecked;
+    this.CalculateValues = function () {
+    
+        this.Value1 = ((this.MaxValue-this.MinValue)/4).toFixed(2);
+        this.Value2 = ((this.MaxValue-this.MinValue)/4*2).toFixed(2);
+        this.Value3 = ((this.MaxValue-this.MinValue)/4*3).toFixed(2);
+
+    }    
 
 }
 
@@ -363,21 +441,6 @@ Controller1.ReadModelAndUptadeSlider();
 Controller1.ReadStateAandUpdateModel();
 Controller2.ReadModelAndUptadeSlider();
 Controller2.ReadStateAandUpdateModel();
-
-// function createSliderAndUI (id){    
-//     const SliderElem = document.getElementById(id);
-//     const slider = new View(SliderElem);
-//     slider.createRangeBullet();
-//     slider.createRangeSlider();
-//     // slider.createMultipleRangeBullet();
-//     // slider.createMultipleRangeSlider();
-//     slider.createNumbers();
-//     slider.createUI();
-// };
-
-// createSliderAndUI ('slider1');
-// createSliderAndUI ('slider2');
-// createSliderAndUI ('slider3');
 
 
 

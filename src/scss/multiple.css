@@ -33,7 +33,7 @@
 				transparent var(--low), var(--range-color) 0,
 				var(--range-color) var(--high), transparent 0
             ) repeat-y;
-        --range-color: #e75735;
+        --range-color: #e5e5e5;
 	}
 
 		input[type="range"].multirange.ghost::-webkit-slider-runnable-track {

@@ -57,6 +57,8 @@ body
         cursor: pointer;
         -webkit-appearance: none;
         margin-top: -10px;
+        z-index: 5;
+        position: relative;
        
     }
   &::-moz-range-thumb{
@@ -125,7 +127,7 @@ body
         flex-direction:row;
         justify-content: space-between;
         margin-bottom: 30px;
-        margin-top: -7px;
+        margin-top: 0px;
     }
 .multiple
  {
@@ -192,7 +194,7 @@ body
   //  margin-top: -80px;
     position: relative;
     left: 33px;
-    top: -103px;
+    top: -108px;
     transform: rotate(270deg);
     z-index: -1; 
  }
@@ -201,4 +203,17 @@ body
  {
     transform: rotate(90deg);
  }
+
+ .fill_container
+ {
+    background: #e75735;
+    width: 260px;
+    height: 5px;
+    border-radius: 2px;
+    margin-left: 2px;
+    position: relative;
+    margin-top: -9.5px;
+    z-index: 1;
+ }
+
 @import 'multiple.css'

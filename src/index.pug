@@ -3,6 +3,16 @@ html
     head
         meta(charset = 'utf-8')
         meta(name='viewport', content="initial-scale=1.0, width=device-width")
+        //- <!-- подключаем стили Mocha, для отображения результатов -->
+        //- link(rel="stylesheet", href="https://cdnjs.cloudflare.com/ajax/libs/mocha/2.1.0/mocha.css")
+        //- <!-- подключаем библиотеку Mocha -->
+        //- script(src="https://cdnjs.cloudflare.com/ajax/libs/mocha/2.1.0/mocha.js")
+        //- <!-- настраиваем Mocha: предстоит BDD-тестирование -->
+        //- script mocha.setup('bdd');
+        //- <!-- подключаем chai -->
+        //- script(src="https://cdnjs.cloudflare.com/ajax/libs/chai/2.0.0/chai.js")
+        //- <!-- в chai есть много всего, выносим assert в глобальную область -->
+        //- script var assert = chai.assert;
         title FSD_Slider
     body
         h1 Слайдеры
@@ -10,3 +20,9 @@ html
             #slider1
             #slider2
             #slider3
+        //- <!-- в этом скрипте находятся спеки -->
+        //- script(src="test.js")
+        //- <!-- в элементе с id="mocha" будут результаты тестов -->
+        //- #mocha
+        //- <!-- запустить тесты! -->
+        //- script mocha.run();

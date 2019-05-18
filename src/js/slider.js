@@ -44,8 +44,8 @@ var View = function (rootObject){
         BulletsContainer.className= "multiple";
         BulletLow.className = "rs-label";
         BulletHigh.className = "rs-label";
-        BulletLow.classList.add("bulletLow");
-        BulletHigh.classList.add("bulletHigh");
+        BulletLow.classList.add("bullet-low");
+        BulletHigh.classList.add("bullet-high");
         BulletLowText.innerHTML = "20";
         BulletHighText.innerHTML = "80";
         this.BulletLow = BulletLow;
@@ -68,8 +68,8 @@ var View = function (rootObject){
         const GhostSlider = document.createElement('input');
         RangeSlider.className = "rs-range";
         GhostSlider.className = "rs-range";
-        GhostSlider.classList.add("ghostinput");
-        InputContainer.className = "inputContainer";
+        GhostSlider.classList.add("ghost-input");
+        InputContainer.className = "input-container";
         RangeSlider.setAttribute("type", "range");
         RangeSlider.setAttribute("value", 20);
         RangeSlider.setAttribute("min", 0);
@@ -79,7 +79,7 @@ var View = function (rootObject){
         GhostSlider.setAttribute("min", 0);
         GhostSlider.setAttribute("max", 100);
 
-        FillContainer.className = "fill_container";
+        FillContainer.className = "fill-container";
         this.FillContainer = FillContainer;
         this.RangeSlider = RangeSlider;
         this.GhostSlider = GhostSlider;
@@ -91,7 +91,7 @@ var View = function (rootObject){
     };
     this.createNumbers = function (){
         const Numbers = document.createElement('div');
-        Numbers.className = "text_block";
+        Numbers.className = "text-block";
         const Num1 = document.createElement('span');
         const Num2 = document.createElement('span');
         const Num3 = document.createElement('span');
@@ -126,7 +126,7 @@ var View = function (rootObject){
         Min.setAttribute("type", "text");
         Min.setAttribute("placeholder","0");
         this.InputMin = Min;
-        Min.className = "Min";
+        Min.className = "min";
 
         const MinSpan = document.createElement('span');
         MinSpan.innerHTML = "Min";
@@ -134,9 +134,8 @@ var View = function (rootObject){
         const Max = document.createElement('input');
         Max.setAttribute("type", "text");
         Max.setAttribute("placeholder","100");
-        Max.setAttribute("name","Max");
         this.InputMax = Max;
-        Max.className = "Max";
+        Max.className = "max";
 
         const MaxSpan = document.createElement('span');
         MaxSpan.innerHTML = "Max";
@@ -147,7 +146,7 @@ var View = function (rootObject){
         CurrentValue1.setAttribute("type", "text");
         CurrentValue1.setAttribute("placeholder","20");
         this.InputCurrentValue1 = CurrentValue1;
-        CurrentValue1.className = "CurrentValue1";
+        CurrentValue1.className = "current-value-1";
 
         const CurrentValue1Span = document.createElement('span');
         CurrentValue1Span.innerHTML = "Value";
@@ -158,9 +157,8 @@ var View = function (rootObject){
         const CurrentValue2 = document.createElement('input');
         CurrentValue2.setAttribute("type", "text");
         CurrentValue2.setAttribute("placeholder","80");
-        CurrentValue2.setAttribute("name","CurrentValue2");
         this.InputCurrentValue2 = CurrentValue2;
-        CurrentValue2.className = "CurrentValue2";
+        CurrentValue2.className = "current-value-2";
 
         const CurrentValue2Span = document.createElement('span');
         CurrentValue2Span.innerHTML = "CurrentValue2";
@@ -172,9 +170,8 @@ var View = function (rootObject){
         const StepSize = document.createElement('input');
         StepSize.setAttribute("type", "text");
         StepSize.setAttribute("placeholder","1");
-        StepSize.setAttribute("name","StepSize");
         this.InputStepSize = StepSize;
-        StepSize.className = "StepSize";
+        StepSize.className = "step-size";
 
         const StepSizeSpan = document.createElement('span');
         StepSizeSpan.innerHTML = "StepSize";
@@ -184,7 +181,6 @@ var View = function (rootObject){
         const Interval = document.createElement('input');
         Interval.setAttribute("type", "checkbox");
         Interval.setAttribute("value", "Interval");
-        Interval.setAttribute("name", "Interval");
         Interval.setAttribute("checked","");
         this.InputInterval = Interval;
 
@@ -238,7 +234,7 @@ var View = function (rootObject){
     this.createErrorMessage = function (){
 
         const ErrorMessage = document.createElement('div');
-        ErrorMessage.className = "errorMessage";
+        ErrorMessage.className = "error-message";
         this.ErrorMessage = ErrorMessage;
         rootObject.appendChild(ErrorMessage);
     }
@@ -271,11 +267,11 @@ var Controller = function (id){
 
         if (SliderView.InputInterval.checked === true){
 
-            SliderView.InputCurrentValue2.classList.add("display_none");
-            SliderView.CurrentValue2Span.classList.add("display_none");
-            SliderView.Br3.classList.add("display_none");
-            SliderView.BulletHigh.classList.add("display_none");
-            SliderView.GhostSlider.classList.add("display_none");
+            SliderView.InputCurrentValue2.classList.add("display-none");
+            SliderView.CurrentValue2Span.classList.add("display-none");
+            SliderView.Br3.classList.add("display-none");
+            SliderView.BulletHigh.classList.add("display-none");
+            SliderView.GhostSlider.classList.add("display-none");
         }
         
       
@@ -325,11 +321,11 @@ var Controller = function (id){
         function checkInputShowBubble(){
             if (SliderView.InputShowBubble.checked === false)
             {
-                SliderView.BulletsContainer.classList.add("display_none");     
+                SliderView.BulletsContainer.classList.add("display-none");     
             }
             else
             {
-                SliderView.BulletsContainer.classList.remove("display_none");
+                SliderView.BulletsContainer.classList.remove("display-none");
             }
 
             ReadModelAndUptateView();
@@ -352,8 +348,6 @@ var Controller = function (id){
                 SliderView.InputCurrentValue2.setAttribute("placeholder", "80");
                 SliderView.CurrentValue2Span.innerHTML = "ValueHigh";
 
-                SliderView.BulletHigh.classList.remove("display_none");
-
                 SliderModel.RangeInterval = false;
 
                 ReadModelAndUptateView();
@@ -375,34 +369,34 @@ var Controller = function (id){
             if (SliderView.InputHorizontal.checked === true)
             {   
                 SliderView.InputContainer.classList.remove("vertical");
-                SliderView.Text_block.classList.remove("vertical_text_block");
-                SliderView.BulletsContainer.classList.remove("bulletsContainnerVertical");
+                SliderView.Text_block.classList.remove("vertical-text-block");
+                SliderView.BulletsContainer.classList.remove("bullets-containner-vertical");
 
-                SliderView.BulletLowText.classList.remove("span_rotate");
-                SliderView.BulletHighText.classList.remove("span_rotate");
+                SliderView.BulletLowText.classList.remove("span-rotate");
+                SliderView.BulletHighText.classList.remove("span-rotate");
 
-                SliderView.Num1.classList.remove("span_rotate");
-                SliderView.Num2.classList.remove("span_rotate");
-                SliderView.Num3.classList.remove("span_rotate");
-                SliderView.Num4.classList.remove("span_rotate");
-                SliderView.Num5.classList.remove("span_rotate");
+                SliderView.Num1.classList.remove("span-rotate");
+                SliderView.Num2.classList.remove("span-rotate");
+                SliderView.Num3.classList.remove("span-rotate");
+                SliderView.Num4.classList.remove("span-rotate");
+                SliderView.Num5.classList.remove("span-rotate");
 
                 ReadModelAndUptateView();
             }
             else
             {
                 SliderView.InputContainer.classList.add('vertical');
-                SliderView.Text_block.classList.add("vertical_text_block");
-                SliderView.BulletsContainer.classList.add("bulletsContainnerVertical");
+                SliderView.Text_block.classList.add("vertical-text-block");
+                SliderView.BulletsContainer.classList.add("bullets-containner-vertical");
 
-                SliderView.BulletLowText.classList.add("span_rotate");
-                SliderView.BulletHighText.classList.add("span_rotate");
+                SliderView.BulletLowText.classList.add("span-rotate");
+                SliderView.BulletHighText.classList.add("span-rotate");
 
-                SliderView.Num1.classList.add("span_rotate");
-                SliderView.Num2.classList.add("span_rotate");
-                SliderView.Num3.classList.add("span_rotate");
-                SliderView.Num4.classList.add("span_rotate");
-                SliderView.Num5.classList.add("span_rotate");
+                SliderView.Num1.classList.add("span-rotate");
+                SliderView.Num2.classList.add("span-rotate");
+                SliderView.Num3.classList.add("span-rotate");
+                SliderView.Num4.classList.add("span-rotate");
+                SliderView.Num5.classList.add("span-rotate");
 
                 ReadModelAndUptateView();
             }
@@ -440,11 +434,11 @@ var Controller = function (id){
 
             if (SliderView.InputInterval.checked === true)
             {
-                SliderView.InputCurrentValue2.classList.add("display_none");
-                SliderView.CurrentValue2Span.classList.add("display_none");
-                SliderView.Br3.classList.add("display_none");
-                SliderView.BulletHigh.classList.add("display_none");
-                SliderView.GhostSlider.classList.add("display_none");
+                SliderView.InputCurrentValue2.classList.add("display-none");
+                SliderView.CurrentValue2Span.classList.add("display-none");
+                SliderView.Br3.classList.add("display-none");
+                SliderView.BulletHigh.classList.add("display-none");
+                SliderView.GhostSlider.classList.add("display-none");
 
                 SliderView.RangeSlider.setAttribute("step", SliderModel.StepSize);
                 SliderView.RangeSlider.setAttribute("max", SliderModel.MaxValue);
@@ -462,12 +456,12 @@ var Controller = function (id){
                 SliderView.RangeSlider.setAttribute("min", SliderModel.MinValue);
                 SliderView.RangeSlider.value = SliderModel.CurrentValueLow;
 
-                SliderView.InputCurrentValue2.classList.remove("display_none");
-                SliderView.CurrentValue2Span.classList.remove("display_none");
-                SliderView.Br3.classList.remove("display_none");
-                SliderView.BulletHigh.classList.remove("display_none");
+                SliderView.InputCurrentValue2.classList.remove("display-none");
+                SliderView.CurrentValue2Span.classList.remove("display-none");
+                SliderView.Br3.classList.remove("display-none");
+                SliderView.BulletHigh.classList.remove("display-none");
 
-                SliderView.GhostSlider.classList.remove("display_none");
+                SliderView.GhostSlider.classList.remove("display-none");
                     
                 SliderView.GhostSlider.setAttribute("step", SliderModel.StepSize);
                 SliderView.GhostSlider.setAttribute("max", SliderModel.MaxValue);
@@ -569,7 +563,7 @@ var Model = function (){
         
         if (isNumeric(this.MinValue)==false || isNumeric(this.MaxValue)==false || isNumeric(this.StepSize)==false || isNumeric(this.CurrentValueLow)==false || isNumeric(this.CurrentValueHigh)==false)
         {
-            this.ErrorMessage = "Введенное значение не корректно. Введите число";
+            this.ErrorMessage = "Введенное значение некорректно. Введите число";
             return;
         }
     

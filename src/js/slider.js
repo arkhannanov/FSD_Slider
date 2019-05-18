@@ -575,15 +575,16 @@ var Model = function (){
 
         if (this.RangeInterval == true)
         {
-            if ((this.CurrentValueLow < this.MinValue) || (this.CurrentValueLow > this.MaxValue))
+            if ((parseFloat(this.CurrentValueLow) < parseFloat(this.MinValue)) || (parseFloat(this.CurrentValueLow) > parseFloat(this.MaxValue)))
             {
                 this.ErrorMessage = "Введены некорректные значения текущего положения. Положение должно находиться между Min и Max";
+
                 return;
             }
         }
         else {
 
-            if ((this.CurrentValueHigh < this.MinValue) || (this.CurrentValueHigh > this.MaxValue) || (this.CurrentValueLow < this.MinValue) || (this.CurrentValueLow > this.MaxValue))
+            if ( parseFloat(this.CurrentValueHigh) < parseFloat(this.MinValue) || (parseFloat(this.CurrentValueHigh) > parseFloat(this.MaxValue) || parseFloat(this.CurrentValueLow) < parseFloat(this.MinValue) || parseFloat(this.CurrentValueLow) > parseFloat(this.MaxValue)))
             {
                 this.ErrorMessage = "Введены некорректные значения текущего положения. Положение должно находиться между Min и Max";
                 return;

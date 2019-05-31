@@ -567,7 +567,7 @@ var Model = function (){
             return;
         }
     
-        if ( this.MinValue >= this.MaxValue)
+        if ( parseFloat(this.MinValue) >= parseFloat(this.MaxValue))
         {
             this.ErrorMessage = "Min Значение больше Max Значения. Ввредите коррекнто.";
             return;
@@ -590,7 +590,7 @@ var Model = function (){
                 return;
             }
         }
-        if ( this.StepSize < 1 || this.StepSize >= (this.MaxValue - this.MinValue))
+        if ( parseFloat(this.StepSize) < 1 || parseFloat(this.StepSize) >= (parseFloat(this.MaxValue) - parseFloat(this.MinValue)))
         {
             this.ErrorMessage = "Значение шага введено некорректо.";
             return;
